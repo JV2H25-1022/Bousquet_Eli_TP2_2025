@@ -1,0 +1,153 @@
+newmtl acmat_0
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd metal-texture-background-vector.jpg
+newmtl acmat_1
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 2022-10-10_134238.jpg
+newmtl acmat_2
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd Tex8.jpg
+newmtl acmat_3
+Kd 0.6 0.6 0.6
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 7.34697e-039
+map_Kd Tex8.jpg
+newmtl acmat_4
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 2022-11-01_153343.jpg
+newmtl acmat_5
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 2022-11-01_153232.jpg
+newmtl acmat_6
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd Tex8A.jpg
+newmtl acmat_7
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 2022-10-12_195536.jpg
+newmtl acmat_8
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd water05.jpg
+newmtl acmat_9
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 2022-11-01_161602.jpg
+newmtl acmat_10
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd Tex2a.jpg
+newmtl acmat_11
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 2022-11-01_153425.jpg
+newmtl acmat_12
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 2022-11-01_153658.jpg
+newmtl acmat_13
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd Tex11.jpg
+newmtl acmat_14
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+newmtl acmat_15
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd istockphoto-1252057514-612x612.jpg
+newmtl acmat_16
+Kd 0.627451 0.752941 0.878431
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0.768421
+map_Kd glass1.jpg
+newmtl acmat_17
+Kd 0 0 0
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0.215789
+map_Kd glass1a.bmp
+newmtl acmat_18
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd glass1a.bmp
+newmtl acmat_19
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd Glas-2.png
+newmtl acmat_20
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd 2022-07-24_144941b.jpg
+newmtl acmat_21
+Kd 1 1 1
+Ka 0.2 0.2 0.2
+Ks 0.2 0.2 0.2
+Ns 128
+Tr 0
+map_Kd Tex6.jpg
