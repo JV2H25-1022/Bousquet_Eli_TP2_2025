@@ -16,10 +16,14 @@ public class SuivreJoueur : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
     }
 
+    
+
     public void NotifierEntreeZone()
     {
         _zonesActives++;
-        if (_zonesActives == 1) 
+
+        Debug.Log("ZONE ACTIVE");
+        if (_zonesActives == 1)
         {
             CommencerSuivre();
         }
@@ -46,8 +50,8 @@ public class SuivreJoueur : MonoBehaviour
 
     void DeplacerEnnemi()
     {
-
+        Debug.Log("Trying to move to player");
         _agent.SetDestination(_joueur.transform.position);
- 
     }
+
 }

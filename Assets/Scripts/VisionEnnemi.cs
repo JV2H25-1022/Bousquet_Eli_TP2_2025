@@ -20,6 +20,14 @@ public class VisionEnnemi : MonoBehaviour
         _joueur = GameObject.FindGameObjectWithTag("Player");
     }
 
+    void Update()
+{
+    if (Input.GetKeyDown(KeyCode.T)) // press T to test
+    {
+        _suivreJoueur.CommencerSuivre();
+    }
+}
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -77,6 +85,9 @@ public class VisionEnnemi : MonoBehaviour
         {
             _suivreJoueur.NotifierEntreeZone();
             _zoneActive = true;
+            
+            Debug.Log("VOIT JOUEUR");
+
         }
 
         _coroutineSuivre = null;
@@ -93,7 +104,6 @@ public class VisionEnnemi : MonoBehaviour
 
         _coroutineArret = null;
     }
-
     private bool PeutVoirJoueur()
     {
         if (_joueur == null) return false;
@@ -103,13 +113,17 @@ public class VisionEnnemi : MonoBehaviour
         Vector3 direction = (_joueur.transform.position - transform.position).normalized;
         float distance = Vector3.Distance(transform.position, _joueur.transform.position);
 
-        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, distance, obstacleMask))
+        Debug.DrawRay(transform.position, direction * distance, Color.red, 1f);
+
+
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, distance, ~obstacleMask))
         {
-            Debug.Log("2");
+            Debug.Log("2: Hit = " + hit.collider.name);
             return hit.collider.CompareTag("Player");
         }
 
         return false;
-    }
+}
+
 }
 
