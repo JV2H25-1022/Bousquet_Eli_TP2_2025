@@ -37,6 +37,9 @@ namespace StarterAssets
         public float StandingHeight = 2.0f;
         public float CrouchSpeed = 1.0f;
         private bool _isCrouching = false;
+        
+        [SerializeField] private GameObject _PositionNormale;
+        [SerializeField] private GameObject _PositionAccroupie;
 
 
         [Space(10)]
@@ -113,6 +116,7 @@ namespace StarterAssets
         private CharacterController _controller;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
+
 
         private const float _threshold = 0.01f;
 
@@ -308,6 +312,9 @@ namespace StarterAssets
                     _controller.center = center;
                     MoveSpeed = 2.0f;
 
+                    _PositionNormale.SetActive(!_isCrouching);
+                    _PositionAccroupie.SetActive(_isCrouching);
+
                     if (_hasAnimator)
                     {
                         _animator.SetBool(_animIDCrouch, false);
@@ -331,6 +338,9 @@ namespace StarterAssets
                 {
                     _animator.SetBool(_animIDCrouch, _isCrouching);
                 }
+
+                _PositionNormale.SetActive(!_isCrouching);
+                _PositionAccroupie.SetActive(_isCrouching);
 
                 if (!_isCrouching)
                 {

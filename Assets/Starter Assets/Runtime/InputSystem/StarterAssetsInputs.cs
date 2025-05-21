@@ -52,6 +52,7 @@ namespace StarterAssets
 			if (value.isPressed)
 			{
 				crouch = !crouch; 
+				
 			}
 		}
 

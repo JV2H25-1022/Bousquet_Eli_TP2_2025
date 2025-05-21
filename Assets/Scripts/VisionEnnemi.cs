@@ -21,12 +21,22 @@ public class VisionEnnemi : MonoBehaviour
     }
 
     void Update()
-{
-    if (Input.GetKeyDown(KeyCode.T)) // press T to test
     {
-        _suivreJoueur.CommencerSuivre();
+        if (Input.GetKeyDown(KeyCode.T)) // press T to test
+        {
+            _suivreJoueur.CommencerSuivre();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L)) // press L to test
+        {
+            Debug.Log("Joueur dans zone:" + _joueurDansZone);
+            Debug.Log("Zone active:" + _zoneActive);
+            Debug.Log("Peut voir joueur:" + PeutVoirJoueur());
+        }
+        
+        
+
     }
-}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -34,15 +44,21 @@ public class VisionEnnemi : MonoBehaviour
         {
             _joueurDansZone = true;
 
+            Debug.Log("Joueur entre");
+
             if (_coroutineArret != null)
             {
                 StopCoroutine(_coroutineArret);
                 _coroutineArret = null;
+                Debug.Log("stop delai1");                
+
             }
 
             if (_coroutineSuivre == null && !_zoneActive && PeutVoirJoueur())
             {
                 _coroutineSuivre = StartCoroutine(DelaiAvantSuivre());
+                Debug.Log("delai suivre");
+
             }
         }
     }
@@ -53,15 +69,20 @@ public class VisionEnnemi : MonoBehaviour
         {
             _joueurDansZone = false;
 
+            
+            Debug.Log("Joueur sort");
+
             if (_coroutineSuivre != null)
             {
                 StopCoroutine(_coroutineSuivre);
                 _coroutineSuivre = null;
+                Debug.Log("stop delai2");                  
             }
 
             if (_coroutineArret == null && _zoneActive)
             {
                 _coroutineArret = StartCoroutine(DelaiAvantArret());
+                Debug.Log("delai arret");                
             }  
         }
     }
@@ -74,6 +95,7 @@ public class VisionEnnemi : MonoBehaviour
             if (!_joueurDansZone || !PeutVoirJoueur())
             {
                 _coroutineSuivre = null;
+                Debug.Log("stop delai3");                  
                 yield break; 
             }
 
@@ -100,6 +122,7 @@ public class VisionEnnemi : MonoBehaviour
         {
             _suivreJoueur.NotifierSortieZone();
             _zoneActive = false;
+
         }
 
         _coroutineArret = null;
@@ -108,22 +131,27 @@ public class VisionEnnemi : MonoBehaviour
     {
         if (_joueur == null) return false;
 
+        Vector3 origin = transform.position;
+
+
+        Vector3 target = _joueur.transform.position + Vector3.up * 0.9f;
+
+        Vector3 direction = (target - origin).normalized;
+        float distance = Vector3.Distance(origin, target);
+
+        Debug.DrawRay(origin, direction * distance, Color.red, 1f);
         Debug.Log("1");
 
-        Vector3 direction = (_joueur.transform.position - transform.position).normalized;
-        float distance = Vector3.Distance(transform.position, _joueur.transform.position);
-
-        Debug.DrawRay(transform.position, direction * distance, Color.red, 1f);
-
-
-        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, distance, ~obstacleMask))
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, distance, ~obstacleMask, QueryTriggerInteraction.Ignore))
         {
             Debug.Log("2: Hit = " + hit.collider.name);
             return hit.collider.CompareTag("Player");
         }
 
         return false;
-}
+    }
+
+
 
 }
 

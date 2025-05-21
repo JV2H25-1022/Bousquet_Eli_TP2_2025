@@ -21,21 +21,24 @@ public class SuivreJoueur : MonoBehaviour
     public void NotifierEntreeZone()
     {
         _zonesActives++;
-
         Debug.Log("ZONE ACTIVE");
         if (_zonesActives == 1)
         {
             CommencerSuivre();
+            Debug.Log("commencer suivre");
         }
     }
 
     public void NotifierSortieZone()
     {
         _zonesActives--;
+        
         if (_zonesActives <= 0)
         {
             _zonesActives = 0;
             ArreterSuivre();
+            Debug.Log("arreter suivre");
+
         }
     }
     public void CommencerSuivre()
