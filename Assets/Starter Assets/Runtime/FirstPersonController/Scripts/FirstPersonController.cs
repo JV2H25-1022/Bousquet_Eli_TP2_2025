@@ -21,6 +21,19 @@ namespace StarterAssets
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 
+		[Header("Crouch Settings")]
+		[Tooltip("Settings for crouch")]
+		private bool _isCrouching = false;
+		[Tooltip("Crouch speed of the character in m/s")]
+		public float CrouchSpeed = 2.0f;
+
+		public float StandingHeight = 2.0f;
+		public float CrouchingHeight = 1.0f;
+		public Vector3 StandingCenter = new Vector3(0, 1.0f, 0);
+		public Vector3 CrouchingCenter = new Vector3(0, 0.5f, 0);
+		public float CrouchTransitionSpeed = 10f;
+
+
 		[Space(10)]
 		[Tooltip("The height the player can jump")]
 		public float JumpHeight = 1.2f;
@@ -115,6 +128,8 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			HandleCrouch();
+
 		}
 
 		private void LateUpdate()
@@ -154,7 +169,7 @@ namespace StarterAssets
 		private void Move()
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
-			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			float targetSpeed = _isCrouching ? CrouchSpeed : (_input.sprint ? SprintSpeed : MoveSpeed);
 
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -245,6 +260,23 @@ namespace StarterAssets
 				_verticalVelocity += Gravity * Time.deltaTime;
 			}
 		}
+
+		private void HandleCrouch()
+		{
+
+			if (_input.crouch)
+			{
+				_isCrouching = !_isCrouching;
+				_input.crouch = false; 
+			}
+
+			float targetHeight = _isCrouching ? CrouchingHeight : StandingHeight;
+			Vector3 targetCenter = _isCrouching ? CrouchingCenter : StandingCenter;
+
+			_controller.height = Mathf.Lerp(_controller.height, targetHeight, Time.deltaTime * CrouchTransitionSpeed);
+			_controller.center = Vector3.Lerp(_controller.center, targetCenter, Time.deltaTime * CrouchTransitionSpeed);
+		}
+
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 		{

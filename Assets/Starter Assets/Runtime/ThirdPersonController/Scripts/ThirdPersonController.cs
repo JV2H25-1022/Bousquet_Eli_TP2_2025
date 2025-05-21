@@ -32,6 +32,13 @@ namespace StarterAssets
         public AudioClip[] FootstepAudioClips;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
+        [Header("Crouch")]
+        public float CrouchHeight = 1.0f;
+        public float StandingHeight = 2.0f;
+        public float CrouchSpeed = 1.0f;
+        private bool _isCrouching = false;
+
+
         [Space(10)]
         [Tooltip("The height the player can jump")]
         public float JumpHeight = 1.2f;
@@ -97,6 +104,7 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
+        private int _animIDCrouch;
 
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
@@ -159,6 +167,8 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            HandleCrouch();
+
         }
 
         private void LateUpdate()
@@ -173,6 +183,7 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _animIDCrouch = Animator.StringToHash("Crouch");
         }
 
         private void GroundedCheck()
@@ -276,8 +287,67 @@ namespace StarterAssets
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+
             }
         }
+
+        private void HandleCrouch()
+        {
+            if (_isCrouching && _input.sprint)
+            {
+               
+                RaycastHit hit;
+                float standUpCheckDistance = StandingHeight - CrouchHeight;
+                if (!Physics.SphereCast(transform.position, _controller.radius, Vector3.up, out hit, standUpCheckDistance))
+                {
+                    _isCrouching = false;
+                    _input.crouch = false;
+                    _controller.height = StandingHeight;
+                    Vector3 center = _controller.center;
+                    center.y = _controller.height / 2f;
+                    _controller.center = center;
+                    MoveSpeed = 2.0f;
+
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDCrouch, false);
+                    }
+                }
+            }
+
+
+            if (_input.crouch != _isCrouching)
+            {
+                _isCrouching = _input.crouch;
+
+                _controller.height = _isCrouching ? CrouchHeight : StandingHeight;
+                Vector3 center = _controller.center;
+                center.y = _controller.height / 2f;
+                _controller.center = center;
+
+                MoveSpeed = _isCrouching ? CrouchSpeed : 2.0f;
+
+                if (_hasAnimator)
+                {
+                    _animator.SetBool(_animIDCrouch, _isCrouching);
+                }
+
+                if (!_isCrouching)
+                {
+                    RaycastHit hit;
+                    float standUpCheckDistance = StandingHeight - CrouchHeight;
+                    if (Physics.SphereCast(transform.position, _controller.radius, Vector3.up, out hit, standUpCheckDistance))
+                    {
+                        _isCrouching = true;
+                        _input.crouch = true;
+                        return;
+                    }
+                }
+            }
+        }
+
+
+
 
         private void JumpAndGravity()
         {
