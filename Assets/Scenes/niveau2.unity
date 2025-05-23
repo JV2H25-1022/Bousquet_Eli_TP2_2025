@@ -96130,7 +96130,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 1569512901}
 --- !u!114 &865661838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96888,7 +96888,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865661834}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 1569512901}
 --- !u!43 &884771495
 Mesh:
   m_ObjectHideFlags: 0
