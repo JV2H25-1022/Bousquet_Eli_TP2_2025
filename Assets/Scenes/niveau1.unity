@@ -9818,6 +9818,9 @@ MonoBehaviour:
   roomSize: {x: 3.6, y: 3.6, z: 3.6}
   wallThickness: 0.1
   floorHeightOffset: 0.05
+  doorWidth: 2.7
+  doorHeight: 2.2
+  doorBottomY: 0
   furniturePrefabs:
   - type: 0
     prefab: {fileID: 5818695356527390720, guid: 4cbd9de3c35ec954d8dc1065a72acbfb,
@@ -47191,7 +47194,7 @@ PrefabInstance:
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.1499996
+      value: 5.149999
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
