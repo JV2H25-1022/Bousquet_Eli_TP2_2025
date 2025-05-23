@@ -1931,7 +1931,7 @@ PrefabInstance:
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -64.59
+      value: -63.44
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
@@ -9818,6 +9818,7 @@ MonoBehaviour:
   roomSize: {x: 3.6, y: 3.6, z: 3.6}
   wallThickness: 0.1
   floorHeightOffset: 0.05
+  minDistanceBetweenFurniture: 0.1
   doorWidth: 2.7
   doorHeight: 2.2
   doorBottomY: 0
@@ -44739,7 +44740,7 @@ Transform:
   m_GameObject: {fileID: 1325602284}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 69.74, y: 4.5, z: -53.33}
+  m_LocalPosition: {x: 68.59, y: 4.5, z: -53.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -47204,7 +47205,7 @@ PrefabInstance:
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.9309045
+      value: 1.7009051
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
