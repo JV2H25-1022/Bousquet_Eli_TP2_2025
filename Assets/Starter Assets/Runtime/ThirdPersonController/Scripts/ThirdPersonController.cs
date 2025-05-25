@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
+using System.Collections;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -37,9 +39,11 @@ namespace StarterAssets
         public float StandingHeight = 2.0f;
         public float CrouchSpeed = 1.0f;
         private bool _isCrouching = false;
-        
+/* 
         [SerializeField] private GameObject _PositionNormale;
-        [SerializeField] private GameObject _PositionAccroupie;
+        [SerializeField] private GameObject _PositionAccroupie; */
+
+        [SerializeField] private ZoneManager zoneManager;
 
 
         [Space(10)]
@@ -134,6 +138,9 @@ namespace StarterAssets
             }
         }
 
+        private ZoneManager[] allZoneManagers;
+
+
 
         private void Awake()
         {
@@ -141,13 +148,14 @@ namespace StarterAssets
             if (_mainCamera == null)
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                allZoneManagers = FindObjectsOfType<ZoneManager>();
             }
         }
 
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
@@ -299,7 +307,7 @@ namespace StarterAssets
         {
             if (_isCrouching && _input.sprint)
             {
-               
+
                 RaycastHit hit;
                 float standUpCheckDistance = StandingHeight - CrouchHeight;
                 if (!Physics.SphereCast(transform.position, _controller.radius, Vector3.up, out hit, standUpCheckDistance))
@@ -311,9 +319,9 @@ namespace StarterAssets
                     center.y = _controller.height / 2f;
                     _controller.center = center;
                     MoveSpeed = 2.0f;
-
+/* 
                     _PositionNormale.SetActive(!_isCrouching);
-                    _PositionAccroupie.SetActive(_isCrouching);
+                    _PositionAccroupie.SetActive(_isCrouching); */
 
                     if (_hasAnimator)
                     {
@@ -339,22 +347,27 @@ namespace StarterAssets
                     _animator.SetBool(_animIDCrouch, _isCrouching);
                 }
 
-                _PositionNormale.SetActive(!_isCrouching);
-                _PositionAccroupie.SetActive(_isCrouching);
+            foreach (ZoneManager zm in allZoneManagers)
+            {
+                zm.SetCrouchState(_isCrouching);
+            }
 
-                if (!_isCrouching)
+            }
+
+
+            if (!_isCrouching)
+            {
+                RaycastHit hit;
+                float standUpCheckDistance = StandingHeight - CrouchHeight;
+                if (Physics.SphereCast(transform.position, _controller.radius, Vector3.up, out hit, standUpCheckDistance))
                 {
-                    RaycastHit hit;
-                    float standUpCheckDistance = StandingHeight - CrouchHeight;
-                    if (Physics.SphereCast(transform.position, _controller.radius, Vector3.up, out hit, standUpCheckDistance))
-                    {
-                        _isCrouching = true;
-                        _input.crouch = true;
-                        return;
-                    }
+                    _isCrouching = true;
+                    _input.crouch = true;
+                    return;
                 }
             }
         }
+
 
 
 

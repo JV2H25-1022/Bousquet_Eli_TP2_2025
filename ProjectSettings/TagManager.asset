@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
+  - Shelf
+  - Desk
   layers:
   - Default
   - TransparentFX

@@ -154,8 +154,8 @@ GameObject:
   - component: {fileID: 8806501266681984043}
   - component: {fileID: 8142622331743713987}
   - component: {fileID: 5338391737536006213}
-  - component: {fileID: 2448387520768844964}
   - component: {fileID: 4297777230550259279}
+  - component: {fileID: 2448387520768844964}
   - component: {fileID: 3235510155707162212}
   - component: {fileID: 544267655150438812}
   m_Layer: 8
@@ -230,27 +230,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2448387520768844964
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3706492271262704167}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.3790065, y: 1, z: 1}
-  m_Center: {x: 0.3104969, y: -1.503058e-14, z: 0}
 --- !u!114 &4297777230550259279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14652,6 +14631,27 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!65 &2448387520768844964
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3706492271262704167}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3790065, y: 1, z: 1}
+  m_Center: {x: 0.3104969, y: 1.503058e-14, z: 0}
 --- !u!65 &3235510155707162212
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14705,7 +14705,7 @@ GameObject:
   - component: {fileID: 4393799693955295380}
   - component: {fileID: 359505081834160056}
   - component: {fileID: 7667977317476556079}
-  - component: {fileID: 3773624414348190629}
+  - component: {fileID: 6189156432079723648}
   m_Layer: 8
   m_Name: MurSud
   m_TagString: Untagged
@@ -14778,8 +14778,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3773624414348190629
-BoxCollider:
+--- !u!64 &6189156432079723648
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -14796,9 +14796,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7907278800697529537
 GameObject:
   m_ObjectHideFlags: 0
@@ -14810,7 +14811,7 @@ GameObject:
   - component: {fileID: 6732542228457033636}
   - component: {fileID: 8443530131307091987}
   - component: {fileID: 379361881359875644}
-  - component: {fileID: 2160590403691527018}
+  - component: {fileID: 1316841441566961272}
   m_Layer: 8
   m_Name: MurEst
   m_TagString: Untagged
@@ -14883,8 +14884,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2160590403691527018
-BoxCollider:
+--- !u!64 &1316841441566961272
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -14901,9 +14902,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &8274063065609331887
 GameObject:
   m_ObjectHideFlags: 0
@@ -14915,7 +14917,7 @@ GameObject:
   - component: {fileID: 9199105657746054903}
   - component: {fileID: 4324523942800897838}
   - component: {fileID: 2884347539278167007}
-  - component: {fileID: 3859309517987855575}
+  - component: {fileID: 4152402883892466946}
   m_Layer: 8
   m_Name: MurNord
   m_TagString: Untagged
@@ -14988,8 +14990,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3859309517987855575
-BoxCollider:
+--- !u!64 &4152402883892466946
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -15006,9 +15008,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &8584869507622287035
 GameObject:
   m_ObjectHideFlags: 0
