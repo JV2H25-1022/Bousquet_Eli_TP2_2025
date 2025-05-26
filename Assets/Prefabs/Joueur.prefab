@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 3284311887664372955}
   - component: {fileID: 1374835453829124694}
   - component: {fileID: 3333640640120183912}
+  - component: {fileID: 4513167321216861375}
   m_Layer: 6
   m_Name: PlayerArmature
   m_TagString: Player
@@ -335,6 +336,24 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4513167321216861375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475809803582213496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00cd487284810664790197117e3e458e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRange: 0.5
+  interactKey: 101
+  interactLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  cameraTransform: {fileID: 2087211481628578850}
 --- !u!1 &639990858823751655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2586,7 +2605,7 @@ Transform:
   m_GameObject: {fileID: 7941767932509925678}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00000035762787}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

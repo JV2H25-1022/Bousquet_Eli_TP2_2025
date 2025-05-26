@@ -1,63 +1,106 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class ObjectScatterer : MonoBehaviour
+public class ObjectScattererWithPooling : MonoBehaviour
 {
-    [Header("Prefabs to Scatter")]
-    public List<GameObject> scatterPrefabs;
+    [System.Serializable]
+    public class ScatterObject
+    {
+        public GameObject prefab;
+        public int poolSize = 10;
+    }
 
-    [Header("Floors to Scatter On (assign manually or via tag)")]
-    public List<GameObject> floorSurfaces;
-
-    [Header("Options")]
+    public List<ScatterObject> objectsToScatter;
+    public List<Transform> floorAreas;
     public int objectsPerFloor = 5;
     public float scatterRadius = 2f;
-    public float verticalOffset = 0.1f;
+    public float activationDistance = 10f;
+    public Transform player;
+
+    private Dictionary<GameObject, Queue<GameObject>> pools = new();
+    private List<GameObject> allSpawnedObjects = new();
 
     void Start()
     {
+        InitializePools();
         ScatterObjects();
     }
 
-    void ScatterObjects()
+    void Update()
     {
-        if (scatterPrefabs.Count == 0 || floorSurfaces.Count == 0)
+        foreach (var obj in allSpawnedObjects)
         {
-            Debug.LogWarning("Missing scatterPrefabs or floorSurfaces.");
-            return;
-        }
+            float distance = Vector3.Distance(player.position, obj.transform.position);
+            bool shouldBeActive = distance < activationDistance;
 
-        foreach (GameObject floor in floorSurfaces)
-        {
-            Bounds bounds = GetMeshOrColliderBounds(floor);
-
-            for (int i = 0; i < objectsPerFloor; i++)
+            if (obj.activeSelf != shouldBeActive)
             {
-                Vector3 randomPos = GetRandomPointOnFloor(bounds);
-                GameObject prefab = scatterPrefabs[Random.Range(0, scatterPrefabs.Count)];
-
-                Instantiate(prefab, randomPos + Vector3.up * verticalOffset, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
+                obj.SetActive(shouldBeActive);
             }
         }
     }
 
-    Vector3 GetRandomPointOnFloor(Bounds bounds)
+    void InitializePools()
     {
-        float x = Random.Range(bounds.min.x, bounds.max.x);
-        float z = Random.Range(bounds.min.z, bounds.max.z);
-        float y = bounds.max.y; // Top of the floor
-
-        return new Vector3(x, y, z);
+        foreach (var item in objectsToScatter)
+        {
+            Queue<GameObject> pool = new Queue<GameObject>();
+            for (int i = 0; i < item.poolSize; i++)
+            {
+                GameObject obj = Instantiate(item.prefab);
+                obj.SetActive(false);
+                pool.Enqueue(obj);
+            }
+            pools[item.prefab] = pool;
+        }
     }
 
-    Bounds GetMeshOrColliderBounds(GameObject obj)
+    void ScatterObjects()
     {
-        if (obj.TryGetComponent(out MeshRenderer mesh))
-            return mesh.bounds;
-        else if (obj.TryGetComponent(out Collider col))
-            return col.bounds;
-        else
-            return new Bounds(obj.transform.position, Vector3.one); // fallback
+        foreach (var floor in floorAreas)
+        {
+            for (int i = 0; i < objectsPerFloor; i++)
+            {
+                var objType = objectsToScatter[Random.Range(0, objectsToScatter.Count)];
+                var pool = pools[objType.prefab];
+
+                if (pool.Count == 0) continue;
+
+                GameObject obj = pool.Dequeue();
+                Vector3 randomPos = floor.position + new Vector3(
+                    Random.Range(-scatterRadius, scatterRadius),
+                    0.1f,
+                    Random.Range(-scatterRadius, scatterRadius)
+                );
+                Quaternion randomRot = Quaternion.Euler(
+                   -90f,
+                   Random.Range(0f, 359f),
+                   0f
+               );
+
+                obj.transform.position = randomPos;
+                obj.transform.rotation = randomRot;
+
+                pool.Enqueue(obj); // Keep it in the cycle
+
+                // Add to active list for distance checking
+                allSpawnedObjects.Add(obj);
+
+                pool.Enqueue(obj); // Optional: Keep it in cycle
+            }
+        }
+    }
+    
+    void OnDrawGizmosSelected()
+{
+    if (player != null)
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(player.position, activationDistance);
     }
 }
+
+}
+
+
 
