@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class RoomFurniturePlacer : MonoBehaviour
 {
-    public enum FurnitureType { Bed, Nightstand, Shelf, Sink, Desk }
+    public enum FurnitureType { Bed, Nightstand, Shelf, Sink, Desk, door }
 
     [System.Serializable]
     public struct FurniturePrefabEntry
@@ -18,9 +18,7 @@ public class RoomFurniturePlacer : MonoBehaviour
     [Header("Room Settings")]
     [SerializeField] private Vector3 roomSize = new Vector3(3.6f, 3.6f, 3.6f);
     [SerializeField] private float wallThickness = 0.1f;
-    [SerializeField] private float floorHeightOffset = 0.05f;
-    [SerializeField] private float minDistanceBetweenFurniture = 0.1f;
-
+    
     [Header("Door Settings")]
     [SerializeField] private float doorWidth = 2.7f;
     [SerializeField] private float doorHeight = 2.0f;

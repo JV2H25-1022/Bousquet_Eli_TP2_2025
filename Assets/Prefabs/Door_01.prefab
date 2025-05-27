@@ -1016,7 +1016,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 40
+  m_VersionIndex: 193
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2037,7 +2037,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 40
+  m_VersionIndex: 193
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2072,7 +2072,7 @@ Transform:
   m_GameObject: {fileID: 8572859074645522211}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.929813, y: 10.43404, z: -3.7531912}
+  m_LocalPosition: {x: 1.2844424, y: 1.0731581, z: -2.3800874}
   m_LocalScale: {x: 2.17, y: 0.93318087, z: 0.635}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2914,7 +2914,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 46
+  m_VersionIndex: 244
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2932,7 +2932,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openRotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
-  openSpeed: 2
+  openSpeed: 5
+  floatingPromptPrefab: {fileID: 315703828159495217, guid: faf373e60b66ae949b3b94f3ab32a573,
+    type: 3}
+  promptLocalOffset: {x: 0.15, y: 0, z: -0.75}
 --- !u!64 &4515732632377889310
 MeshCollider:
   m_ObjectHideFlags: 0
