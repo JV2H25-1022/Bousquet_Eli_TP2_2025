@@ -21,7 +21,7 @@ MonoBehaviour:
     rotationEuler: {x: 0, y: 0, z: 0}
   - type: 2
     position: {x: 1.35, y: 1.05, z: -0.9}
-    rotationEuler: {x: 0, y: 270, z: 0}
+    rotationEuler: {x: 0, y: 90, z: 0}
   - type: 3
     position: {x: -1.5, y: 0.9, z: -1.4}
     rotationEuler: {x: 0, y: 180, z: 0}

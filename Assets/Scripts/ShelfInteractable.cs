@@ -2,43 +2,70 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-public class ShelfInteractable : MonoBehaviour, IInteractable
+public class ShelfInteractable : MonoBehaviour, IInteractable, IHasViewSource
 {
-    private bool isOpen = false;
+    public  bool isOpen = false;
     private Quaternion closedRotation;
     public Quaternion openRotation;
     public float openSpeed = 2f;
 
     public GameObject floatingPromptPrefab;
     private GameObject floatingPromptInstance;
-    private Transform playerView;
+    private Transform viewSource;
+
+    [SerializeField] private Vector3 promptOffset = new Vector3(0, 0, 0); // Local position
 
     private void Start()
     {
         closedRotation = transform.rotation;
-
         if (floatingPromptPrefab != null)
         {
             floatingPromptInstance = Instantiate(floatingPromptPrefab);
             floatingPromptInstance.SetActive(false);
+
+            // Immediately position the prompt near this object
+            if (viewSource != null)
+            {
+                Vector3 toPlayer = (viewSource.position - transform.position).normalized;
+                Vector3 right = Vector3.Cross(Vector3.up, toPlayer).normalized;
+
+                Vector3 offset =
+                    toPlayer * promptOffset.z +
+                    Vector3.up * promptOffset.y +
+                    right * promptOffset.x;
+
+                floatingPromptInstance.transform.position = transform.position + offset;
+                floatingPromptInstance.transform.rotation = Quaternion.LookRotation(toPlayer);
+            }
+            else
+            {
+                // Default initial position — directly above the object until the viewSource is set
+                floatingPromptInstance.transform.position = transform.position + Vector3.up * promptOffset.y;
+            }
         }
+
     }
 
     private void Update()
     {
-        if (floatingPromptInstance && floatingPromptInstance.activeSelf && playerView != null)
+        if (floatingPromptInstance && floatingPromptInstance.activeSelf && viewSource != null)
         {
-            Vector3 toPlayer = (playerView.position - transform.position).normalized;
-            Vector3 promptPosition = transform.position + toPlayer * 0.4f + Vector3.up * 1.2f;
+            Vector3 shelfPosition = transform.position;
 
+             Vector3 toPlayer = (viewSource.position - shelfPosition).normalized;
+
+
+            Vector3 promptPosition = shelfPosition + promptOffset;
             floatingPromptInstance.transform.position = promptPosition;
-            floatingPromptInstance.transform.rotation = Quaternion.LookRotation(toPlayer);
+
+         // Rotate prompt to always face the player
+            floatingPromptInstance.transform.rotation = Quaternion.LookRotation(toPlayer*-1);
         }
     }
 
-    public void SetViewSource(Transform viewSource)
+    public void SetViewSource(Transform viewSourceSource)
     {
-        playerView = viewSource;
+        viewSource = viewSourceSource;
     }
 
     public void ShowPrompt(bool show)
@@ -63,6 +90,12 @@ public class ShelfInteractable : MonoBehaviour, IInteractable
         }
 
         transform.rotation = targetRotation;
+    }
+    
+        private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.TransformPoint(promptOffset), 0.1f);
     }
 }
 

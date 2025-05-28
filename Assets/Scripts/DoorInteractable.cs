@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class DoorInteractable : MonoBehaviour, IInteractable
+public class DoorInteractable : MonoBehaviour, IInteractable, IHasViewSource
 {
-    private bool isOpen = false;
+    public bool isOpen = false;
     private Quaternion closedRotation;
     public Quaternion openRotation;
     public float openSpeed = 2f;
@@ -11,44 +11,62 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     public GameObject floatingPromptPrefab;
 
     private GameObject floatingPromptInstance;
-    private Transform playerView;
+    private Transform viewSource;
 
-    [SerializeField] private Vector3 promptLocalOffset = new Vector3(0, 0, 0); // Local position above center
+    [SerializeField] private Vector3 promptOffset = new Vector3(0.09f, 0, -1.09f); // Local position
 
     private void Start()
     {
         closedRotation = transform.rotation;
-
         if (floatingPromptPrefab != null)
         {
             floatingPromptInstance = Instantiate(floatingPromptPrefab);
             floatingPromptInstance.SetActive(false);
+
+            // Immediately position the prompt near this object
+            if (floatingPromptInstance && floatingPromptInstance.activeSelf && viewSource != null)
+            {
+                Vector3 toPlayer = (viewSource.position - transform.position).normalized;
+                Vector3 right = Vector3.Cross(Vector3.up, toPlayer).normalized;
+
+                Vector3 offset =
+                    toPlayer * promptOffset.z +
+                    Vector3.up * promptOffset.y +
+                    right * promptOffset.x;
+
+                floatingPromptInstance.transform.position = transform.position + offset;
+                floatingPromptInstance.transform.rotation = Quaternion.LookRotation(toPlayer);
+            }
+            else
+            {
+                // Default initial position — directly above the object until the viewSource is set
+                floatingPromptInstance.transform.position = transform.position + Vector3.up * promptOffset.y;
+            }
+        }
+
+    }
+
+    private void Update()
+    {
+        if (floatingPromptInstance && floatingPromptInstance.activeSelf && viewSource != null)
+        {
+            Vector3 doorPosition = transform.position;
+
+            // Direction from door to player
+            Vector3 toPlayer = (viewSource.position - doorPosition).normalized;
+
+            Vector3 promptPosition = doorPosition + promptOffset;
+            floatingPromptInstance.transform.position = promptPosition;
+
+            // Rotate prompt to always face the player
+            floatingPromptInstance.transform.rotation = Quaternion.LookRotation(toPlayer * -1);
         }
     }
-
-private void Update()
-{
-    if (floatingPromptInstance && floatingPromptInstance.activeSelf && playerView != null)
-    {
-        Vector3 doorPosition = transform.position;
-
-        // Direction from door to player
-        Vector3 toPlayer = (playerView.position - doorPosition).normalized;
-
-            // Offset: in front of the door toward the player, plus a bit above the door
-
-        Vector3 promptPosition = doorPosition + promptLocalOffset;
-        floatingPromptInstance.transform.position = promptPosition;
-
-        // Rotate prompt to always face the player
-        floatingPromptInstance.transform.rotation = Quaternion.LookRotation(toPlayer*-1);
-    }
-}
 
 
     public void SetViewSource(Transform playerViewSource)
     {
-        playerView = playerViewSource;
+        viewSource = playerViewSource;
     }
 
     public void ShowPrompt(bool show)
@@ -79,7 +97,17 @@ private void Update()
 
     private void OnDrawGizmosSelected()
     {
+        Vector3 toPlayer = (viewSource.position - transform.position).normalized;
+        Vector3 right = Vector3.Cross(Vector3.up, toPlayer).normalized;
+
+        Vector3 offset =
+            toPlayer * promptOffset.z +
+            Vector3.up * promptOffset.y +
+            right * promptOffset.x;
+
+        floatingPromptInstance.transform.position = transform.position + offset;
+
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.TransformPoint(promptLocalOffset), 0.1f);
+        Gizmos.DrawSphere(transform.TransformPoint(promptOffset), 0.1f);
     }
 }

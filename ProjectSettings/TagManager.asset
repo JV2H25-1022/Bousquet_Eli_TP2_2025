@@ -7,7 +7,14 @@ TagManager:
   - CinemachineTarget
   - Shelf
   - Desk
-  - Undefined
+  - poubelle
+  - recyclage
+  - compost
+  - Flashlight
+  - Mask
+  - Bin
+  - Wall
+  - PutDownZone
   layers:
   - Default
   - TransparentFX
@@ -18,8 +25,8 @@ TagManager:
   - Joueur
   - Ennemi
   - Mur
-  - Porte
   - Objet
+  - 
   - 
   - 
   - 

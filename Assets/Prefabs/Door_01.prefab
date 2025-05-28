@@ -2914,7 +2914,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 244
+  m_VersionIndex: 247
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2935,7 +2935,7 @@ MonoBehaviour:
   openSpeed: 5
   floatingPromptPrefab: {fileID: 315703828159495217, guid: faf373e60b66ae949b3b94f3ab32a573,
     type: 3}
-  promptLocalOffset: {x: 0.15, y: 0, z: -0.75}
+  promptOffset: {x: 0.09, y: 0, z: -1.09}
 --- !u!64 &4515732632377889310
 MeshCollider:
   m_ObjectHideFlags: 0

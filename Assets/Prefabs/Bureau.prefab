@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 2298023559494592194}
   - component: {fileID: 2903664889730460007}
   - component: {fileID: 1130144695250886061}
-  - component: {fileID: 402070839777121999}
   m_Layer: 0
   m_Name: Writing_Desk
   m_TagString: Untagged
@@ -170,27 +169,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &402070839777121999
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1490666105878297720}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.5499998, y: 0.7599756, z: 0.65}
-  m_Center: {x: -0.01385951, y: 0.38406953, z: -0.002003044}
 --- !u!1 &2817152073377349788
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,6 +552,7 @@ MonoBehaviour:
   openSpeed: 2
   floatingPromptPrefab: {fileID: 315703828159495217, guid: faf373e60b66ae949b3b94f3ab32a573,
     type: 3}
+  promptOffset: {x: -0.18, y: 0, z: 0.08}
 --- !u!64 &261250057039258200
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -607,7 +586,9 @@ GameObject:
   - component: {fileID: 1048107535761518626}
   - component: {fileID: 996729248891125934}
   - component: {fileID: 4809839325994924983}
-  - component: {fileID: 2780577567349279177}
+  - component: {fileID: 3252558676086570642}
+  - component: {fileID: 1715083571805008745}
+  - component: {fileID: 6742091635726966123}
   m_Layer: 0
   m_Name: Bureau
   m_TagString: Desk
@@ -683,8 +664,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2780577567349279177
-MeshCollider:
+--- !u!65 &3252558676086570642
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -701,10 +682,51 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.068442665, y: 1.0298362, z: 1}
+  m_Center: {x: 0.46577954, y: 0.014917962, z: 0}
+--- !u!65 &1715083571805008745
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5804788752391621142}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3263131, y: 1.0298362, z: 1}
+  m_Center: {x: -0.33617112, y: 0.014917962, z: 0}
+--- !u!65 &6742091635726966123
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5804788752391621142}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0009205, y: 0.081050545, z: 1}
+  m_Center: {x: 0.0011326671, y: 0.48931137, z: 0}
 --- !u!1 &5957549541244427096
 GameObject:
   m_ObjectHideFlags: 0

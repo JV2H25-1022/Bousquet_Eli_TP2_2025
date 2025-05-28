@@ -13,7 +13,7 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 
-		public bool crouch;
+		public bool crouch = false;
 
 
 		[Header("Movement Settings")]

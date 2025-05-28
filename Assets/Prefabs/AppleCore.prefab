@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2715673299228678938}
   - component: {fileID: 5444702659336839782}
   - component: {fileID: -6997565274162803187}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: AppleCore
-  m_TagString: Untagged
+  m_TagString: compost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,3 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fabaa3bfffdc9d74dbf6408786225be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatingPromptPrefab: {fileID: 315703828159495217, guid: faf373e60b66ae949b3b94f3ab32a573,
+    type: 3}
+  promptOffset: {x: 0, y: 0.03, z: 0}
