@@ -140,16 +140,6 @@ public class SpecialCollectible : MonoBehaviour, IInteractable, ICollectible, IH
         transform.SetParent(target);
         ShowPrompt(false);
 
-        if (CompareTag("Flashlight"))
-        {
-            GameUIManager.Instance?.ShowFlashlightUI();
-        }
-        else if (CompareTag("Mask"))
-        {
-            GameUIManager.Instance?.ShowMaskUI();
-        }
-
-
     }
 
 

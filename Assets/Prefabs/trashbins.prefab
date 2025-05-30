@@ -116,7 +116,7 @@ MonoBehaviour:
   - binCollider: {fileID: 2036430813139910150}
     acceptedTag: poubelle
   - binCollider: {fileID: 7258371795254254441}
-    acceptedTag: recyclage
+    acceptedTag: papier, plastique
   - binCollider: {fileID: 721617210166015896}
     acceptedTag: compost
   hasScored: 0

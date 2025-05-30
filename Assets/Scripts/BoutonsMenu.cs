@@ -19,11 +19,11 @@ public class BoutonsMenu : MonoBehaviour
 
     }
 
-    public void CommencerJeu(string Jeu)
+    public void CommencerJeu(string Scene)
     {
 
-        Debug.Log("Scene à charger: " + Jeu);
-        SceneManager.LoadScene(Jeu);
+        Debug.Log("Scene à charger: " + Scene);
+        SceneManager.LoadScene(Scene);
 
     }
 

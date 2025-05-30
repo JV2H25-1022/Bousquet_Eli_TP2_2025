@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -11,12 +13,19 @@ public class GameUIManager : MonoBehaviour
     public Slider healthBar;
     public TextMeshProUGUI levelNameText;
     public TextMeshProUGUI timerText;
-    public TextMeshProUGUI scoreText;  // 👈 Add this field in Inspector
+    public TextMeshProUGUI scoreText;
 
+    [System.Serializable]
+    public class ItemIcon
+    {
+        public string tagName;
+        public GameObject iconObject;
+    }
+
+    public List<ItemIcon> itemIcons;
+
+    private GameObject currentIcon;
     public float countdownTime = 300f;
-
-    [SerializeField] private GameObject flashlightUI;
-    [SerializeField] private GameObject maskUI;
 
     private float timeRemaining;
     private bool isPaused = false;
@@ -38,7 +47,8 @@ public class GameUIManager : MonoBehaviour
         levelNameText.text = "Level 1";
         timeRemaining = countdownTime;
 
-        UpdateScoreDisplay(GameDataManager.Instance.Score); // 👈 Initialize score
+        if (GameDataManager.Instance != null)
+            UpdateScoreDisplay(GameDataManager.Instance.Score);
     }
 
     void Update()
@@ -66,14 +76,36 @@ public class GameUIManager : MonoBehaviour
     public void SetPlayerName(string name) => playerNameText.text = name;
     public void SetLevelName(string level) => levelNameText.text = level;
 
-    public void ShowFlashlightUI() => flashlightUI?.SetActive(true);
-    public void ShowMaskUI() => maskUI?.SetActive(true);
-
-    public void UpdateScoreDisplay(int newScore)  // 👈 Called from ScoreManager
+    public void UpdateScoreDisplay(int newScore)
     {
         if (scoreText != null)
-        {
             scoreText.text = "Score: " + newScore;
+    }
+
+    public void ShowIconForTag(string tag)
+    {
+        HideAll();
+
+        foreach (var item in itemIcons)
+        {
+            if (item.tagName == tag)
+            {
+                item.iconObject.SetActive(true);
+                currentIcon = item.iconObject;
+                return;
+            }
         }
+
+        Debug.LogWarning($"No icon configured for tag: {tag}");
+    }
+
+    public void HideAll()
+    {
+        foreach (var item in itemIcons)
+        {
+            item.iconObject.SetActive(false);
+        }
+
+        currentIcon = null;
     }
 }

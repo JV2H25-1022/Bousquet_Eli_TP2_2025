@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteractionHandler : MonoBehaviour
@@ -8,10 +10,7 @@ public class PlayerInteractionHandler : MonoBehaviour
 
     [SerializeField] private Transform flashlightHoldPoint;
     [SerializeField] private Transform maskHoldPoint;
-
-    
     [SerializeField] private Transform binHoldPoint;
-
 
     [Header("Interaction Settings")]
     [SerializeField] private float interactRange = 3f;
@@ -23,6 +22,8 @@ public class PlayerInteractionHandler : MonoBehaviour
     [SerializeField] private KeyCode throwKey = KeyCode.Mouse1;
     [SerializeField] private float throwForce = 8f;
 
+    [SerializeField] private GameUIManager ItemUI;
+
     private IInteractable currentInteractable;
     private ICollectible heldItem;
 
@@ -32,48 +33,49 @@ public class PlayerInteractionHandler : MonoBehaviour
 
         if (Input.GetKeyDown(interactKey))
         {
-            if (heldItem != null)
+            if (currentInteractable != null)
             {
-                Drop(); // if holding something already
-            }
-            else if (currentInteractable != null)
-            {
-                if (currentInteractable is IHasViewSource viewSource)
+                var asCollectible = currentInteractable as ICollectible;
+
+                if (heldItem != null)
                 {
-                    viewSource.SetViewSource(cameraTransform);
-                }
+                    // Drop current held item
+                    Drop();
 
-                if (currentInteractable is ICollectible collectible)
-                {
-                    heldItem = collectible;
-
-                    // Decide correct hold point (optional automation)
-                    Transform point = holdPoint;
-
-                    var interactableComponent = currentInteractable as Component;
-
-                    if (interactableComponent != null)
-                    {
-                        if (interactableComponent.CompareTag("Flashlight"))
-                        {
-                            point = flashlightHoldPoint;
-                        }
-                        else if (interactableComponent.CompareTag("Mask"))
-                        {
-                            point = maskHoldPoint;
-                        }
-                         if (interactableComponent.CompareTag("Bin"))
-                        {
-                            point = binHoldPoint;
-                        }
-                    
-                    }
-
-                    collectible.OnPickup(point);
+                    // If the target is *not* a collectible, still allow interacting with it
+                    if (asCollectible == null)
+                        currentInteractable.Interact();
                 }
                 else
                 {
-                    currentInteractable.Interact();
+                    if (currentInteractable is IHasViewSource viewSource)
+                        viewSource.SetViewSource(cameraTransform);
+
+                    if (asCollectible != null)
+                    {
+                        heldItem = asCollectible;
+
+                        Transform point = holdPoint;
+                        var go = (currentInteractable as MonoBehaviour)?.gameObject;
+
+                        if (go != null)
+                        {
+                            switch (go.tag)
+                            {
+                                case "Flashlight": point = flashlightHoldPoint; break;
+                                case "Mask": point = maskHoldPoint; break;
+                                case "Bin": point = binHoldPoint; break;
+                            }
+
+                            ItemUI.ShowIconForTag(go.tag);
+                        }
+
+                        asCollectible.OnPickup(point);
+                    }
+                    else
+                    {
+                        currentInteractable.Interact();
+                    }
                 }
             }
         }
@@ -96,17 +98,13 @@ public class PlayerInteractionHandler : MonoBehaviour
             if (interactable != null)
             {
                 if (currentInteractable != null && currentInteractable != interactable)
-                {
                     currentInteractable.ShowPrompt(false);
-                }
 
                 currentInteractable = interactable;
                 currentInteractable.ShowPrompt(true);
-            }
 
-            if (interactable is IHasViewSource viewSource)
-            {
-                viewSource.SetViewSource(cameraTransform);
+                if (interactable is IHasViewSource viewSource)
+                    viewSource.SetViewSource(cameraTransform);
             }
         }
         else
@@ -123,6 +121,7 @@ public class PlayerInteractionHandler : MonoBehaviour
     {
         heldItem?.OnDrop();
         heldItem = null;
+        ItemUI.HideAll();
     }
 
     void Throw()
@@ -130,5 +129,6 @@ public class PlayerInteractionHandler : MonoBehaviour
         Vector3 force = cameraTransform.forward * throwForce + Vector3.up * 3f;
         heldItem?.OnThrow(force);
         heldItem = null;
+        ItemUI.HideAll();
     }
 }

@@ -8,13 +8,21 @@ TagManager:
   - Shelf
   - Desk
   - poubelle
-  - recyclage
   - compost
   - Flashlight
   - Mask
   - Bin
   - Wall
   - PutDownZone
+  - plastique
+  - papier
+  - GameManager
+  - PauseButton
+  - PlayerNameText
+  - HealthBar
+  - LevelNameText
+  - TimerText
+  - ScoreText
   layers:
   - Default
   - TransparentFX
