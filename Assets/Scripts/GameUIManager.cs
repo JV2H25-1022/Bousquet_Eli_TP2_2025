@@ -150,17 +150,28 @@ public class GameUIManager : PersistentManager<GameUIManager>
         Debug.LogWarning($"No icon configured for tag: {tag}");
     }
 
-    public void HideAll()
+public void HideAll()
+{
+    foreach (var item in itemIcons)
     {
-        foreach (var item in itemIcons)
+        // Skip disabling if tag is "Flashlight" or "Mask"
+        if (item.iconObject != null &&
+            (item.iconObject.CompareTag("Flashlight") || item.iconObject.CompareTag("Mask")))
         {
-            if (item.iconObject != null)
-                item.iconObject.SetActive(false);
-            else
-                Debug.LogWarning($"IconObject for tag '{item.tagName}' is null.");
+            continue;
         }
 
-        currentIcon = null;
+        if (item.iconObject != null)
+        {
+            item.iconObject.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning($"IconObject for tag '{item.tagName}' is null.");
+        }
     }
+
+    currentIcon = null;
+}
 
 }
