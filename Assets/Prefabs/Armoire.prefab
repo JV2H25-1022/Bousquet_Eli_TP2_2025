@@ -339,6 +339,7 @@ GameObject:
   - component: {fileID: 8769582963828527487}
   - component: {fileID: 1898947470003775572}
   - component: {fileID: 7121949006181942016}
+  - component: {fileID: 5752981822845468804}
   m_Layer: 9
   m_Name: Armoire
   m_TagString: Shelf
@@ -542,6 +543,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.45639196, z: 0.11999999}
   m_Center: {x: 0.25, y: -0.2386978, z: -0.33}
+--- !u!95 &5752981822845468804
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6388920275405720051}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e79fecc24bdb1fe4da8837583c11da51, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6882312474456163275
 GameObject:
   m_ObjectHideFlags: 0

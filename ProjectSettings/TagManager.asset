@@ -23,6 +23,7 @@ TagManager:
   - LevelNameText
   - TimerText
   - ScoreText
+  - Enemy
   layers:
   - Default
   - TransparentFX
