@@ -3,7 +3,42 @@ guid: ddb6bd1c95c99f046b668ec4e7ed54fd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 75016
+    second: {fileID: 2800000, guid: ab7f211c23f62ec43a8cdff0d62df5a7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: TexturesCom_Metal_SteelBrushed_1K_albedo
+    second: {fileID: 2800000, guid: 7c96efa41299e0f40bc5da21ed3d39d4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: TexturesCom_TilesPlain0041_1_seamless_S
+    second: {fileID: 2800000, guid: 54bae6c6f78849641a25c0d800d6f637, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: TexturesCom_TilesPlain0055_1_seamless_S
+    second: {fileID: 2800000, guid: 6978c4ab273951847ba489fd387f9719, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: TexturesCom_TilesSmall0101_1_S
+    second: {fileID: 2800000, guid: f9ff42c9f6978b449a96ef7f257e5f7c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: TexturesCom_TilesSmall0151_1_S
+    second: {fileID: 2800000, guid: 33db5502d586d6643af01edfbed96eb7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture
+    second: {fileID: 2800000, guid: c85850d5f03f0654383864d5a3733930, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -3,7 +3,12 @@ guid: def00cec73d624145bc45fcaf4a0bf72
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MCDonalsStrawDispenser
+    second: {fileID: 2100000, guid: af023f8fc8817864bbd8a979f41e9f0e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

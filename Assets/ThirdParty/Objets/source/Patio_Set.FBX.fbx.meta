@@ -3,7 +3,27 @@ guid: c7c3b20a7606a84438eacb1d57ecc5cd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass_Top
+    second: {fileID: 2100000, guid: 6d6f388f47d5e4e4bbd9f1c329288746, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Patio_Chair
+    second: {fileID: 2100000, guid: 4349ff74758dd7f49a5b26f4c3699df2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Patio_Umbrella
+    second: {fileID: 2100000, guid: 827c7c0abbd731f428e08486f29b9b9f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Table_Body
+    second: {fileID: 2100000, guid: 7cb7d173b971d0b4ba7adb96b5384d82, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
