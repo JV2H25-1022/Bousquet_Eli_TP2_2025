@@ -67,6 +67,7 @@ public class CollectibleItem : MonoBehaviour, IInteractable, ICollectible, IHasV
         {
             StopAllCoroutines();
             StartCoroutine(PickupSmooth(holdPoint));
+            
         }
     }
 

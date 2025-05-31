@@ -4,26 +4,28 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - CinemachineTarget
-  - Shelf
-  - Desk
-  - poubelle
-  - compost
-  - Flashlight
-  - Mask
-  - Bin
-  - Wall
-  - PutDownZone
-  - plastique
-  - papier
-  - GameManager
-  - PauseButton
+  - Enemy
   - PlayerNameText
   - HealthBar
+  - ScoreText
   - LevelNameText
   - TimerText
-  - ScoreText
-  - Enemy
+  - PauseButton
+  - poubelle
+  - compost
+  - papier
+  - plastique
+  - Bin
+  - Wall
+  - Shelf
+  - Desk
+  - MaskIcon
+  - FlashlightIcon
+  - Flashlight
+  - Mask
+  - PutDownZone
+  - GameManager
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX

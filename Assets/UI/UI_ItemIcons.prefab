@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 1950884697855405711}
   m_Layer: 0
   m_Name: TorcheObtenue
-  m_TagString: Flashlight
+  m_TagString: FlashlightIcon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -912,7 +912,7 @@ GameObject:
   - component: {fileID: 4304708652120543481}
   m_Layer: 0
   m_Name: MasqueObtenu
-  m_TagString: Untagged
+  m_TagString: MaskIcon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
