@@ -23,6 +23,8 @@ public class GameUIManager : PersistentManager<GameUIManager>
     public List<ItemIcon> itemIcons;
     private GameObject currentIcon;
 
+    public bool HasMask { get; private set; }
+
     private bool isPaused = false;
 
     protected override void OnSingletonAwake()
@@ -35,6 +37,8 @@ public class GameUIManager : PersistentManager<GameUIManager>
         // Initial fallback setup if already in a scene
         if (GameDataManager.Instance != null)
             UpdateScoreDisplay(GameDataManager.Instance.Score);
+         if (GameDataManager.Instance != null)
+            UpdateHealthDisplay(GameDataManager.Instance.Health);
 
         HideAll();    
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -54,6 +58,7 @@ public class GameUIManager : PersistentManager<GameUIManager>
         SetPlayerName("Player"); // Replace with real player name if needed
         SetLevelName(scene.name); // Could map scene name to display name
         UpdateScoreDisplay(GameDataManager.Instance?.Score ?? 0);
+        UpdateHealthDisplay(GameDataManager.Instance?.Health ?? 100f);
     }
 
     private void Update()
@@ -100,14 +105,6 @@ public class GameUIManager : PersistentManager<GameUIManager>
             pauseButton.onClick.AddListener(PauseGame);
     }
 
-    public void SetHealth(float value)
-    {
-        if (healthBar != null)
-            healthBar.value = value;
-        else
-            Debug.LogWarning("SetHealth called but healthBar is null.");
-    }
-
     public void SetPlayerName(string name)
     {
         if (playerNameText != null)
@@ -131,6 +128,14 @@ public class GameUIManager : PersistentManager<GameUIManager>
         else
             Debug.LogWarning("UpdateScoreDisplay called but scoreText is null.");
     }
+    
+        public void UpdateHealthDisplay(float newHealth)
+    {
+        if (healthBar != null)
+            healthBar.value = newHealth;
+        else
+            Debug.LogWarning("UpdateHealthDisplay called but newHealth is null.");
+    }
 
     public void ShowIconForTag(string tag)
     {
@@ -142,9 +147,10 @@ public class GameUIManager : PersistentManager<GameUIManager>
             {
                 item.iconObject.SetActive(true);
                 currentIcon = item.iconObject;
+
+                if (tag == "Mask") HasMask = true;
                 return;
             }
-            
         }
 
         Debug.LogWarning($"No icon configured for tag: {tag}");
@@ -154,12 +160,9 @@ public void HideAll()
 {
     foreach (var item in itemIcons)
     {
-        // Skip disabling if tag is "Flashlight" or "Mask"
-        if (item.iconObject != null &&
-            (item.iconObject.CompareTag("Flashlight") || item.iconObject.CompareTag("Mask")))
-        {
+        // Skip hiding icons for Flashlight or Mask
+        if (item.tagName == "Flashlight" || item.tagName == "Mask")
             continue;
-        }
 
         if (item.iconObject != null)
         {

@@ -8,64 +8,75 @@ public class HealthManager : PersistentManager<HealthManager>
     public float reducedDamage = 5f;
 
     private bool isTakingDamage = false;
+    private Collider currentEnemyZone = null;
+
+
+    private const string TAG_ENEMY = "Enemy";
 
     public override void Initialize()
     {
         VieJoueur = 100f;
+
         UpdateUI();
+        UpdateData();
     }
 
     void Update()
     {
-        // Optional: Handle death
-        if (VieJoueur <= 0)
+        if (VieJoueur <= 0f)
         {
-            VieJoueur = 0;
-            CancelInvoke("ApplyDamage");
+            VieJoueur = 0f;
+            CancelInvoke(nameof(ApplyDamage));
             Debug.Log("Player is dead.");
-            // Trigger death sequence, restart, etc.
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void DamageHandler(Collider enemyZone, bool entered)
     {
-        if (other.CompareTag("Enemy") && !isTakingDamage)
-        {
-            isTakingDamage = true;
-            InvokeRepeating("ApplyDamage", 0f, damageInterval);
-        }
-    }
+        if (!enemyZone.CompareTag(TAG_ENEMY)) return;
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
+        if (entered)
         {
-            isTakingDamage = false;
-            CancelInvoke("ApplyDamage");
+            if (!isTakingDamage)
+            {
+                isTakingDamage = true;
+                currentEnemyZone = enemyZone;
+                InvokeRepeating(nameof(ApplyDamage), 0f, damageInterval);
+            }
+        }
+        else
+        {
+            if (currentEnemyZone == enemyZone)
+            {
+                isTakingDamage = false;
+                CancelInvoke(nameof(ApplyDamage));
+                currentEnemyZone = null;
+            }
         }
     }
 
     private void ApplyDamage()
     {
-        float damage = baseDamage;
+        float damage = GameUIManager.Instance.HasMask ? reducedDamage : baseDamage;
+        TakeDamage(damage);
+    }
 
-        GameObject maskIcon = GameObject.FindGameObjectWithTag("MaskIcon");
-        if (maskIcon != null && maskIcon.activeInHierarchy)
-        {
-            damage = reducedDamage;
-        }
 
-        VieJoueur -= damage;
-        VieJoueur = Mathf.Clamp(VieJoueur, 0, 100);
-
+    public void TakeDamage(float amount)
+    {
+        VieJoueur -= amount;
+        VieJoueur = Mathf.Clamp(VieJoueur, 0f, 100f);
         UpdateUI();
+        UpdateData();
     }
 
     private void UpdateUI()
     {
-        if (GameUIManager.Instance != null && GameUIManager.Instance.healthBar != null)
-        {
-            GameUIManager.Instance.healthBar.value = VieJoueur;
-        }
+        GameUIManager.Instance?.UpdateHealthDisplay(VieJoueur);
+    }
+
+    private void UpdateData()
+    {
+        GameDataManager.Instance?.SetHealth(VieJoueur);
     }
 }

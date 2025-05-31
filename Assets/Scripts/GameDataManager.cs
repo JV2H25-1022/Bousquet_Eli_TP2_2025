@@ -3,12 +3,15 @@ using UnityEngine;
 public class GameDataManager : PersistentManager<GameDataManager>
 {
     public int Score { get; private set; }
+    public float Health { get; private set; }
     public float TimeRemaining { get; private set; }
     public float CountdownTime = 300f; // Or however long you want the total time to be
 
     public override void Initialize()
     {
         TimeRemaining = CountdownTime;
+        Health = 100f;
+        Score = 0; 
     }
 
     public void UpdateTimer(float deltaTime)
@@ -27,15 +30,27 @@ public class GameDataManager : PersistentManager<GameDataManager>
         Debug.Log("Score is now: " + Score);
     }
 
+    public void SetHealth(float value)
+    {
+        Health = Mathf.Clamp(value, 0f, 100f);
+    }
+
+
+
     public void ResetScore()
     {
         Score = 0;
     }
-    
+
     public void ResetTimer()
-{
-    TimeRemaining = CountdownTime;
-}
+    {
+        TimeRemaining = CountdownTime;
+    }
+
+     public void ResetHealth()
+    {
+        Health = 100f;
+    }
 
 }
 
