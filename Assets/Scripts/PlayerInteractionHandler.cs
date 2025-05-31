@@ -22,8 +22,6 @@ public class PlayerInteractionHandler : MonoBehaviour
     [SerializeField] private KeyCode throwKey = KeyCode.Mouse1;
     [SerializeField] private float throwForce = 8f;
 
-    [SerializeField] private GameUIManager ItemUI;
-
     private IInteractable currentInteractable;
     private ICollectible heldItem;
 
@@ -56,7 +54,7 @@ public class PlayerInteractionHandler : MonoBehaviour
                         heldItem = asCollectible;
 
                         Transform point = holdPoint;
-                        var go = (currentInteractable as MonoBehaviour)?.gameObject;
+                        var go = (currentInteractable as MonoBehaviour).gameObject;
 
                         if (go != null)
                         {
@@ -67,7 +65,7 @@ public class PlayerInteractionHandler : MonoBehaviour
                                 case "Bin": point = binHoldPoint; break;
                             }
 
-                            ItemUI.ShowIconForTag(go.tag);
+                            GameUIManager.Instance.ShowIconForTag(go.tag);
                         }
 
                         asCollectible.OnPickup(point);
@@ -121,7 +119,7 @@ public class PlayerInteractionHandler : MonoBehaviour
     {
         heldItem?.OnDrop();
         heldItem = null;
-        ItemUI.HideAll();
+        GameUIManager.Instance.HideAll();
     }
 
     void Throw()
@@ -129,6 +127,6 @@ public class PlayerInteractionHandler : MonoBehaviour
         Vector3 force = cameraTransform.forward * throwForce + Vector3.up * 3f;
         heldItem?.OnThrow(force);
         heldItem = null;
-        ItemUI.HideAll();
+        GameUIManager.Instance.HideAll();
     }
 }

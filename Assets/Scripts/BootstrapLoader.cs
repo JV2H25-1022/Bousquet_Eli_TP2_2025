@@ -5,27 +5,35 @@ using UnityEngine.UI;
 
 public class BootstrapLoader : MonoBehaviour
 {
-    [SerializeField] private string firstSceneToLoad = "Level1";
+    public static string NextSceneToLoad = "niveau1";
+
     [SerializeField] private Slider loadingBar;
+    [SerializeField] private GameObject[] objectsToPersist;
+    [SerializeField] private GameObject loadingCanvas;
+
+    private static bool gameInitialized = false;
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-
-        // Prevent duplicates of other root objects
-        GameObject[] rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
-        foreach (GameObject obj in rootObjects)
+        foreach (var obj in objectsToPersist)
         {
-            if (obj != gameObject)
-            {
-                DontDestroyOnLoad(obj);
-            }
+            if (obj.transform.parent != null)
+                obj.transform.SetParent(null);
+
+            DontDestroyOnLoad(obj);
         }
     }
 
     void Start()
     {
-        StartCoroutine(LoadSceneAsync(firstSceneToLoad));
+        if (!gameInitialized)
+        {
+            GameDataManager.Instance?.Initialize();
+            gameInitialized = true;
+        }
+
+        StartCoroutine(LoadSceneAsync(NextSceneToLoad));
+        Debug.Log("BootstrapLoader loading: " + NextSceneToLoad);
     }
 
     private IEnumerator LoadSceneAsync(string sceneName)
@@ -35,16 +43,20 @@ public class BootstrapLoader : MonoBehaviour
 
         while (op.progress < 0.9f)
         {
-            float progress = Mathf.Clamp01(op.progress / 0.9f);
-            if (loadingBar) loadingBar.value = progress;
+            loadingBar.value = op.progress;
             yield return null;
         }
 
-        // Finish loading bar
-        if (loadingBar) loadingBar.value = 1f;
-        yield return new WaitForSeconds(0.3f); // Small delay for polish
+        loadingBar.value = 1f;
+        yield return new WaitForSeconds(0.3f);
 
-        // Now allow scene to activate
+        CanvasGroup group = loadingCanvas.GetComponent<CanvasGroup>();
+        while (group.alpha > 0)
+        {
+            group.alpha -= Time.deltaTime * 2f;
+            yield return null;
+        }
+
         op.allowSceneActivation = true;
     }
 }

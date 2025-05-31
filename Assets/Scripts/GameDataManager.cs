@@ -1,23 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameDataManager : MonoBehaviour
+public class GameDataManager : PersistentManager<GameDataManager>
 {
-    public static GameDataManager Instance { get; private set; }
-
     public int Score { get; private set; }
+    public float TimeRemaining { get; private set; }
+    public float CountdownTime = 300f; // Or however long you want the total time to be
 
-    private void Awake()
+    public override void Initialize()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        TimeRemaining = CountdownTime;
+    }
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+    public void UpdateTimer(float deltaTime)
+    {
+        if (TimeRemaining > 0f)
+        {
+            TimeRemaining -= deltaTime;
+            if (TimeRemaining < 0f)
+                TimeRemaining = 0f;
+        }
     }
 
     public void AddScore(int points)
@@ -30,6 +31,12 @@ public class GameDataManager : MonoBehaviour
     {
         Score = 0;
     }
+    
+    public void ResetTimer()
+{
+    TimeRemaining = CountdownTime;
+}
+
 }
 
 

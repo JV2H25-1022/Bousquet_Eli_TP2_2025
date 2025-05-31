@@ -15,6 +15,8 @@ namespace StarterAssets
 
 		public bool crouch = false;
 
+		public bool flash = false;
+
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -56,6 +58,20 @@ namespace StarterAssets
 			}
 		}
 
+
+		public void OnFlash(InputValue value)
+		{
+			if (value.isPressed)
+			{
+				var go = GameObject.FindGameObjectWithTag("Flashlight");
+
+				if (go.activeInHierarchy)
+				{
+					flash = !flash;
+
+				}
+			}
+		}
 
 
 #endif

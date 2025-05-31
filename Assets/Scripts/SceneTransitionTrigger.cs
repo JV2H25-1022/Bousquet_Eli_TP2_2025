@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneTransitionTrigger : MonoBehaviour
 {
-    [SerializeField] private string nextSceneName;
+    [SerializeField] private string nextSceneName; // Set this in the Inspector (e.g., "niveau2" or "finale")
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene(nextSceneName);
+            BootstrapLoader.NextSceneToLoad = nextSceneName;
+            SceneManager.LoadScene("BootstrapScene");
         }
     }
 }
+
 

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class TrashSortingManager : MonoBehaviour
     public class BinRule
     {
         public Collider binCollider;
-        public string acceptedTag;
+        public List<string> acceptedTags;  // Accept multiple tags
     }
 
     public List<BinRule> binRules = new List<BinRule>();
@@ -17,22 +16,22 @@ public class TrashSortingManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Loop through all bin rules to check if the entered collider matches
+        // Only check tags you're interested in
+        if (!(other.CompareTag("poubelle")
+           || other.CompareTag("plastique")
+           || other.CompareTag("papier")
+           || other.CompareTag("compost")))
+        {
+            return;
+        }
+
         foreach (BinRule rule in binRules)
         {
-            if (!(other.CompareTag("poubelle")
-            || other.CompareTag("recyclage")
-            || other.CompareTag("compost")))
-            {
-                return;
-            }
-
-            // Check if the object entered one of the defined bins
             if (rule.binCollider.bounds.Intersects(other.bounds))
             {
                 string enteredTag = other.tag;
 
-                if (enteredTag == rule.acceptedTag)
+                if (rule.acceptedTags.Contains(enteredTag))
                 {
                     ScoreManager.Instance.AddPoint();
                 }
@@ -42,13 +41,11 @@ public class TrashSortingManager : MonoBehaviour
                 }
 
                 hasScored = true;
-
-                // Optionally destroy or disable the trash after scoring
-                Destroy(other.gameObject);
-
-                break; // Only process one rule
+                Destroy(other.gameObject); // or disable, up to you
+                break;
             }
         }
     }
 }
+
 

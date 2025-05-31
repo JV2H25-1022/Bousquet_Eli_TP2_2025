@@ -1,13 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
-public class GameUIManager : MonoBehaviour
+public class GameUIManager : PersistentManager<GameUIManager>
 {
-    public static GameUIManager Instance { get; private set; }
-
     public Button pauseButton;
     public TextMeshProUGUI playerNameText;
     public Slider healthBar;
@@ -23,63 +21,115 @@ public class GameUIManager : MonoBehaviour
     }
 
     public List<ItemIcon> itemIcons;
-
     private GameObject currentIcon;
-    public float countdownTime = 300f;
 
-    private float timeRemaining;
     private bool isPaused = false;
 
-    private void Awake()
+    protected override void OnSingletonAwake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-    }
+       
 
-    void Start()
-    {
-        pauseButton.onClick.AddListener(PauseGame);
-        playerNameText.text = "Player";
-        levelNameText.text = "Level 1";
-        timeRemaining = countdownTime;
+        if (pauseButton != null)
+            pauseButton.onClick.AddListener(PauseGame);
 
+        // Initial fallback setup if already in a scene
         if (GameDataManager.Instance != null)
             UpdateScoreDisplay(GameDataManager.Instance.Score);
+
+        HideAll();    
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void Update()
+    private void OnDestroy()
     {
-        if (!isPaused && timeRemaining > 0f)
+        if (isPersisted)
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        RebindUI();
+
+        // Update UI with default or scene-relevant values
+        SetPlayerName("Player"); // Replace with real player name if needed
+        SetLevelName(scene.name); // Could map scene name to display name
+        UpdateScoreDisplay(GameDataManager.Instance?.Score ?? 0);
+    }
+
+    private void Update()
+    {
+        if (!isPaused && GameDataManager.Instance != null)
         {
-            timeRemaining -= Time.unscaledDeltaTime;
-            if (timeRemaining < 0f) timeRemaining = 0f;
+            GameDataManager.Instance.UpdateTimer(Time.deltaTime);
+            float timeRemaining = GameDataManager.Instance.TimeRemaining;
 
             int minutes = Mathf.FloorToInt(timeRemaining / 60f);
             int seconds = Mathf.FloorToInt(timeRemaining % 60f);
             int milliseconds = Mathf.FloorToInt(timeRemaining * 1000f % 1000);
 
-            timerText.text = $"{minutes:00}:{seconds:00}:{milliseconds:000}";
+            if (timerText != null)
+                timerText.text = $"{minutes:00}:{seconds:00}:{milliseconds:000}";
         }
     }
 
-    void PauseGame()
+    private void PauseGame()
     {
         isPaused = !isPaused;
         Time.timeScale = isPaused ? 0 : 1;
     }
 
-    public void SetHealth(float value) => healthBar.value = value;
-    public void SetPlayerName(string name) => playerNameText.text = name;
-    public void SetLevelName(string level) => levelNameText.text = level;
+    private void RebindUI()
+    {
+        Debug.Log("Rebinding UI elements...");
+
+        pauseButton = pauseButton ?? GameObject.FindWithTag("PauseButton")?.GetComponent<Button>();
+        playerNameText = playerNameText ?? GameObject.FindWithTag("PlayerNameText")?.GetComponent<TextMeshProUGUI>();
+        healthBar = healthBar ?? GameObject.FindWithTag("HealthBar")?.GetComponent<Slider>();
+        levelNameText = levelNameText ?? GameObject.FindWithTag("LevelNameText")?.GetComponent<TextMeshProUGUI>();
+        timerText = timerText ?? GameObject.FindWithTag("TimerText")?.GetComponent<TextMeshProUGUI>();
+        scoreText = scoreText ?? GameObject.FindWithTag("ScoreText")?.GetComponent<TextMeshProUGUI>();
+
+        if (!pauseButton) Debug.LogWarning("Missing: PauseButton");
+        if (!playerNameText) Debug.LogWarning("Missing: PlayerNameText");
+        if (!healthBar) Debug.LogWarning("Missing: HealthBar");
+        if (!levelNameText) Debug.LogWarning("Missing: LevelNameText");
+        if (!timerText) Debug.LogWarning("Missing: TimerText");
+        if (!scoreText) Debug.LogWarning("Missing: ScoreText");
+
+        if (pauseButton != null)
+            pauseButton.onClick.AddListener(PauseGame);
+    }
+
+    public void SetHealth(float value)
+    {
+        if (healthBar != null)
+            healthBar.value = value;
+        else
+            Debug.LogWarning("SetHealth called but healthBar is null.");
+    }
+
+    public void SetPlayerName(string name)
+    {
+        if (playerNameText != null)
+            playerNameText.text = name;
+        else
+            Debug.LogWarning("SetPlayerName called but playerNameText is null.");
+    }
+
+    public void SetLevelName(string level)
+    {
+        if (levelNameText != null)
+            levelNameText.text = level;
+        else
+            Debug.LogWarning("SetLevelName called but levelNameText is null.");
+    }
 
     public void UpdateScoreDisplay(int newScore)
     {
         if (scoreText != null)
             scoreText.text = "Score: " + newScore;
+        else
+            Debug.LogWarning("UpdateScoreDisplay called but scoreText is null.");
     }
 
     public void ShowIconForTag(string tag)
@@ -94,6 +144,7 @@ public class GameUIManager : MonoBehaviour
                 currentIcon = item.iconObject;
                 return;
             }
+            
         }
 
         Debug.LogWarning($"No icon configured for tag: {tag}");
@@ -103,9 +154,13 @@ public class GameUIManager : MonoBehaviour
     {
         foreach (var item in itemIcons)
         {
-            item.iconObject.SetActive(false);
+            if (item.iconObject != null)
+                item.iconObject.SetActive(false);
+            else
+                Debug.LogWarning($"IconObject for tag '{item.tagName}' is null.");
         }
 
         currentIcon = null;
     }
+
 }

@@ -1,30 +1,23 @@
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : PersistentManager<ScoreManager>
 {
-    public static ScoreManager Instance;
 
-    private void Awake()
+    public override void Initialize()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
+         GameUIManager.Instance.UpdateScoreDisplay(GameDataManager.Instance.Score);
     }
 
     public void AddPoint()
     {
-        GameDataManager.Instance.AddScore(1);
+        GameDataManager.Instance?.AddScore(1);
         Debug.Log("Correct!");
         GameUIManager.Instance?.UpdateScoreDisplay(GameDataManager.Instance.Score);
     }
 
     public void SubtractPoint()
     {
-        GameDataManager.Instance.AddScore(-1);
+        GameDataManager.Instance?.AddScore(-1);
         Debug.Log("Wrong!");
         GameUIManager.Instance?.UpdateScoreDisplay(GameDataManager.Instance.Score);
     }

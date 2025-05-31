@@ -39,9 +39,7 @@ namespace StarterAssets
         public float StandingHeight = 2.0f;
         public float CrouchSpeed = 1.0f;
         private bool _isCrouching = false;
-/* 
-        [SerializeField] private GameObject _PositionNormale;
-        [SerializeField] private GameObject _PositionAccroupie; */
+        private bool _isFlash = false;
 
         [SerializeField] private ZoneManager zoneManager;
 
@@ -113,6 +111,9 @@ namespace StarterAssets
         private int _animIDMotionSpeed;
         private int _animIDCrouch;
 
+        private int _animIDFlash;
+
+
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
@@ -180,6 +181,7 @@ namespace StarterAssets
             GroundedCheck();
             Move();
             HandleCrouch();
+            FlashLight();
 
         }
 
@@ -196,6 +198,8 @@ namespace StarterAssets
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
             _animIDCrouch = Animator.StringToHash("Crouch");
+            _animIDFlash = Animator.StringToHash("Flash");
+
         }
 
         private void GroundedCheck()
@@ -369,7 +373,21 @@ namespace StarterAssets
         }
 
 
+        private void FlashLight()
+        {
 
+
+            if (_input.flash != _isFlash)
+            {
+                _isFlash = _input.flash;
+
+                if (_hasAnimator)
+                {
+                    _animator.SetBool(_animIDFlash, _isFlash);
+                }
+            }
+
+        }
 
 
         private void JumpAndGravity()

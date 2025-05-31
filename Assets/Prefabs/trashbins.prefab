@@ -114,11 +114,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   binRules:
   - binCollider: {fileID: 2036430813139910150}
-    acceptedTag: poubelle
+    acceptedTags:
+    - poubelle
   - binCollider: {fileID: 7258371795254254441}
-    acceptedTag: papier, plastique
+    acceptedTags:
+    - papier
+    - plastique
   - binCollider: {fileID: 721617210166015896}
-    acceptedTag: compost
+    acceptedTags:
+    - compost
   hasScored: 0
 --- !u!114 &4917067784988663886
 MonoBehaviour:
