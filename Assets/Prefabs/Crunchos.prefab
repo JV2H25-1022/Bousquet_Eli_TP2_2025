@@ -149,4 +149,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatingPromptPrefab: {fileID: 315703828159495217, guid: faf373e60b66ae949b3b94f3ab32a573,
     type: 3}
-  promptOffset: {x: 0, y: 0, z: 0.01}
+  promptOffset: {x: 0, y: 0, z: 0.02}

@@ -16,11 +16,14 @@ public class SpecialCollectible : MonoBehaviour, IInteractable, ICollectible, IH
 
     private bool isPickedUp = false;
 
+    
+    [SerializeField] private AudioClip pickupSound;
+    private AudioSource audioSource;
+
     private void Awake()
     {
-
         col = GetComponent<Collider>();
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -118,6 +121,12 @@ public class SpecialCollectible : MonoBehaviour, IInteractable, ICollectible, IH
     private IEnumerator PickupSmooth(Transform target)
     {
         isPickedUp = true;
+
+        if (audioSource != null && pickupSound != null)
+        {
+            audioSource.PlayOneShot(pickupSound);
+        }
+
         float duration = 0.3f;
         float elapsed = 0f;
 
@@ -139,7 +148,6 @@ public class SpecialCollectible : MonoBehaviour, IInteractable, ICollectible, IH
 
         transform.SetParent(target);
         ShowPrompt(false);
-
     }
 
 

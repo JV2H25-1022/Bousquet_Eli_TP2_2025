@@ -13,6 +13,8 @@ public class BinInteractable : MonoBehaviour, IInteractable, ICollectible, IHasV
     private bool isPickedUp = false;
     private Transform holdPoint;
 
+    private bool HasScored;
+
     private Rigidbody rb;
     private Collider col;
 
@@ -169,6 +171,16 @@ public class BinInteractable : MonoBehaviour, IInteractable, ICollectible, IHasV
         if (other.CompareTag("PutDownZone") && !isPickedUp)
         {
             SnapToZone(other.transform);
+
+            if (!HasScored)
+            {
+
+                ScoreManager.Instance.AddPoint(500);
+                HasScored = true;
+
+            }
+
+          
         }
     }
 

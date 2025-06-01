@@ -15,6 +15,15 @@ public class DoorInteractable : MonoBehaviour, IInteractable, IHasViewSource
 
     [SerializeField] private Vector3 promptOffset = new Vector3(0.09f, 0, -1.09f); // Local position
 
+    [SerializeField] private AudioClip openSound;
+    [SerializeField] private AudioClip closeSound;
+    private AudioSource audioSource;
+
+    private void Awake()
+{
+    audioSource = GetComponent<AudioSource>();
+}
+
     private void Start()
     {
         closedRotation = transform.rotation;
@@ -77,12 +86,18 @@ public class DoorInteractable : MonoBehaviour, IInteractable, IHasViewSource
         }
     }
 
-    public void Interact()
+ public void Interact()
+{
+    isOpen = !isOpen;
+    StopAllCoroutines();
+    StartCoroutine(RotateDoor(isOpen ? openRotation : closedRotation));
+
+    // Play appropriate sound
+    if (audioSource != null)
     {
-        isOpen = !isOpen;
-        StopAllCoroutines();
-        StartCoroutine(RotateDoor(isOpen ? openRotation : closedRotation));
+        audioSource.PlayOneShot(isOpen ? openSound : closeSound);
     }
+}
 
     private IEnumerator RotateDoor(Quaternion targetRotation)
     {

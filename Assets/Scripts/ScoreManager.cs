@@ -8,16 +8,16 @@ public class ScoreManager : PersistentManager<ScoreManager>
          GameUIManager.Instance.UpdateScoreDisplay(GameDataManager.Instance.Score);
     }
 
-    public void AddPoint()
+    public void AddPoint(int point)
     {
-        GameDataManager.Instance?.AddScore(1);
+        GameDataManager.Instance?.AddScore(point);
         Debug.Log("Correct!");
         GameUIManager.Instance?.UpdateScoreDisplay(GameDataManager.Instance.Score);
     }
 
-    public void SubtractPoint()
+    public void SubtractPoint(int point)
     {
-        GameDataManager.Instance?.AddScore(-1);
+        GameDataManager.Instance?.AddScore(point);
         Debug.Log("Wrong!");
         GameUIManager.Instance?.UpdateScoreDisplay(GameDataManager.Instance.Score);
     }

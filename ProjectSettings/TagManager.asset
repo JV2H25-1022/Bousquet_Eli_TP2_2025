@@ -23,9 +23,17 @@ TagManager:
   - FlashlightIcon
   - Flashlight
   - Mask
+  - ObjetResponsable
   - PutDownZone
   - GameManager
   - CinemachineTarget
+  - S
+  - A
+  - B
+  - C
+  - D
+  - E
+  - F
   layers:
   - Default
   - TransparentFX

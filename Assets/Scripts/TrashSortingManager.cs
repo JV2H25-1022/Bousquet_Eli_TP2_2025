@@ -33,11 +33,11 @@ public class TrashSortingManager : MonoBehaviour
 
                 if (rule.acceptedTags.Contains(enteredTag))
                 {
-                    ScoreManager.Instance.AddPoint();
+                    ScoreManager.Instance.AddPoint(10);
                 }
                 else
                 {
-                    ScoreManager.Instance.SubtractPoint();
+                    ScoreManager.Instance.SubtractPoint(-10);
                 }
 
                 hasScored = true;

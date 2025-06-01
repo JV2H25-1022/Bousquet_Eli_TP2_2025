@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameDataManager : PersistentManager<GameDataManager>
 {
@@ -7,11 +10,13 @@ public class GameDataManager : PersistentManager<GameDataManager>
     public float TimeRemaining { get; private set; }
     public float CountdownTime = 300f; // Or however long you want the total time to be
 
+    private FinJeu endGame;
+
     public override void Initialize()
     {
         TimeRemaining = CountdownTime;
         Health = 100f;
-        Score = 0; 
+        Score = 0;
     }
 
     public void UpdateTimer(float deltaTime)
@@ -21,6 +26,13 @@ public class GameDataManager : PersistentManager<GameDataManager>
             TimeRemaining -= deltaTime;
             if (TimeRemaining < 0f)
                 TimeRemaining = 0f;
+        }
+
+        if (TimeRemaining == 0)
+        {
+
+            SceneManager.LoadScene("finale");
+            endGame.EndingScene(false);
         }
     }
 
