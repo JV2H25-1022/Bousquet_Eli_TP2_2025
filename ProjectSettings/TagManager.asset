@@ -11,6 +11,10 @@ TagManager:
   - LevelNameText
   - TimerText
   - PauseButton
+  - PausePannel
+  - GlobalSlider
+  - MusicSlider
+  - SfxSlider
   - poubelle
   - compost
   - papier
@@ -34,6 +38,7 @@ TagManager:
   - D
   - E
   - F
+  - Canvas
   layers:
   - Default
   - TransparentFX
@@ -45,7 +50,7 @@ TagManager:
   - Ennemi
   - Mur
   - Objet
-  - 
+  - PostProcessLayer
   - 
   - 
   - 

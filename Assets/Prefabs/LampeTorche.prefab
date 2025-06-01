@@ -105,6 +105,7 @@ MonoBehaviour:
   floatingPromptPrefab: {fileID: 315703828159495217, guid: faf373e60b66ae949b3b94f3ab32a573,
     type: 3}
   promptOffset: {x: 0, y: 0, z: 0.15}
+  itemID: Flashlight
   pickupSound: {fileID: 8300000, guid: bc50e071f7cb84a46b7548b0533ea5af, type: 3}
 --- !u!65 &6559706504420882483
 BoxCollider:
@@ -136,7 +137,8 @@ AudioSource:
   m_GameObject: {fileID: 4657274922735216214}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5602728176208509510, guid: 3b0d1d8832863f84281f712f9135f8fb,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

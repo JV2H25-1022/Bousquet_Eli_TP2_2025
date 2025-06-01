@@ -16,6 +16,8 @@ public class SpecialCollectible : MonoBehaviour, IInteractable, ICollectible, IH
 
     private bool isPickedUp = false;
 
+    public string itemID;
+
     
     [SerializeField] private AudioClip pickupSound;
     private AudioSource audioSource;
@@ -99,6 +101,8 @@ public class SpecialCollectible : MonoBehaviour, IInteractable, ICollectible, IH
             StopAllCoroutines();
 
             StartCoroutine(PickupSmooth(holdPoint));
+
+            GameDataManager.Instance.CollectItem(itemID);
 
             Debug.Log("Interact");
         }

@@ -9,6 +9,12 @@ public class GameDataManager : PersistentManager<GameDataManager>
     public float Health { get; private set; }
     public float TimeRemaining { get; private set; }
     public float CountdownTime = 300f; // Or however long you want the total time to be
+    public string PlayerName { get; private set; } = "Player";
+
+    
+     private HashSet<string> collectedItems = new HashSet<string>();
+
+    
 
     private FinJeu endGame;
 
@@ -17,6 +23,16 @@ public class GameDataManager : PersistentManager<GameDataManager>
         TimeRemaining = CountdownTime;
         Health = 100f;
         Score = 0;
+    }
+
+        public void SetPlayerName(string name)
+    {
+        PlayerName = name;
+    }
+
+         public void SetSceneName(string name)
+    {
+        PlayerName = name;
     }
 
     public void UpdateTimer(float deltaTime)
@@ -45,6 +61,20 @@ public class GameDataManager : PersistentManager<GameDataManager>
     public void SetHealth(float value)
     {
         Health = Mathf.Clamp(value, 0f, 100f);
+    }
+
+
+
+
+    public void CollectItem(string itemID)
+    {
+        collectedItems.Add(itemID);
+    }
+
+    
+    public bool IsItemCollected(string itemID)
+    {
+        return collectedItems.Contains(itemID);
     }
 
 

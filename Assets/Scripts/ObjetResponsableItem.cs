@@ -71,7 +71,7 @@ public class ObjetResponsable : MonoBehaviour, IInteractable, IHasViewSource
             Light light = GetComponent<Light>();
             if (light != null) light.enabled = false;
 
-            ScoreManager.Instance.AddPoint(100);
+            ScoreManager.Instance.AddPoint(1000/3);
 
             if (audioSource != null && usedSound != null)
             {

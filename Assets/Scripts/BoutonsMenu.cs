@@ -8,22 +8,29 @@ public class BoutonsMenu : MonoBehaviour
 {
 
     [SerializeField] private GameObject _PanneauOptions;
+    private AudioSource _audioSource;
 
-    void Start()
+    [SerializeField] private AudioClip _BoutonDepartSon;
+
+
+        private void Awake()
     {
-
+        _audioSource = GetComponent<AudioSource>();
     }
 
-    void Update()
-    {
 
-    }
+
 
     public void CommencerJeu(string Scene)
     {
 
         Debug.Log("Scene à charger: " + Scene);
         SceneManager.LoadScene(Scene);
+    
+     if (_audioSource != null)
+    {
+        _audioSource.PlayOneShot(_BoutonDepartSon);
+    }
 
     }
 

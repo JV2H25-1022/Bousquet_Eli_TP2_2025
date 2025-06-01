@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// Base class for singleton-like persistent managers that survive scene loads.
@@ -8,6 +9,7 @@ public abstract class PersistentManager<T> : MonoBehaviour where T : Component
     public static T Instance { get; private set; }
 
     protected bool isPersisted = false;
+
 
     protected virtual void Awake()
     {
@@ -28,6 +30,9 @@ public abstract class PersistentManager<T> : MonoBehaviour where T : Component
 
 
     }
+
+
+
 
     /// <summary>
     /// Optional method for custom logic during Awake in derived classes.

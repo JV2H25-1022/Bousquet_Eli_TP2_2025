@@ -18,11 +18,13 @@ public class DoorInteractable : MonoBehaviour, IInteractable, IHasViewSource
     [SerializeField] private AudioClip openSound;
     [SerializeField] private AudioClip closeSound;
     private AudioSource audioSource;
+    
+    
 
     private void Awake()
-{
-    audioSource = GetComponent<AudioSource>();
-}
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
